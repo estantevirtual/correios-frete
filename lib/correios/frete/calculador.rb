@@ -37,6 +37,8 @@ module Correios
         response = web_service(service_types).request!
         services = parser.servicos(response)
 
+        raise ServiceUnavailableError unless services
+
         if service_types.size == 1
           services.values.first
         else
@@ -64,6 +66,8 @@ module Correios
       def parser
         @parser ||= Correios::Frete::Parser.new
       end
+
+      class ServiceUnavailableError < StandardError; end
     end
   end
 end

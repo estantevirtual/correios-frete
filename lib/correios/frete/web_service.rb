@@ -25,7 +25,8 @@ module Correios
         request = Net::HTTP::Get.new(uri.request_uri)
 
         http = Net::HTTP.new(uri.host, uri.port)
-        http.open_timeout = Correios::Frete.request_timeout
+        http.open_timeout = Correios::Frete.open_timeout
+        http.read_timeout = Correios::Frete.read_timeout
         http.request(request)
       end
 
